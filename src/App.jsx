@@ -224,23 +224,15 @@ const Skills = () => {
                   </div>
                   <h3 className="text-xl font-bold">{skillGroup.category}</h3>
                 </div>
-                <div className="space-y-6">
+                <div className="flex flex-wrap gap-3">
                   {skillGroup.items.map((skill, i) => (
-                    <div key={i} className="group/skill">
-                      <div className="flex justify-between items-end mb-2">
-                        <span className="text-sm font-medium text-gray-300 group-hover/skill:text-white transition-colors">{skill.name}</span>
-                        <span className="text-xs font-mono text-gray-500">{skill.level}%</span>
-                      </div>
-                      <div className="skill-progress">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1, delay: 0.5 + (i * 0.1) }}
-                          className="skill-progress-bar"
-                        />
-                      </div>
-                    </div>
+                    <motion.span
+                      key={i}
+                      whileHover={{ scale: 1.05 }}
+                      className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-primary-color/10 hover:border-primary-color/30 transition-all cursor-default"
+                    >
+                      {skill}
+                    </motion.span>
                   ))}
                 </div>
               </motion.div>

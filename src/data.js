@@ -34,28 +34,21 @@ export const skills = [
     {
         category: "Frontend",
         items: [
-            { name: "HTML", level: 90 },
-            { name: "CSS", level: 85 },
-            { name: "JavaScript", level: 80 },
-            { name: "React.js", level: 75 }
+            "HTML", "CSS", "JavaScript", "React.js"
         ],
         icon: Globe
     },
     {
         category: "Backend",
         items: [
-            { name: "Node.js", level: 70 },
-            { name: "Express.js", level: 65 },
-            { name: "REST APIs", level: 75 }
+            "Node.js", "Express.js", "REST APIs"
         ],
         icon: Server
     },
     {
         category: "Database & Tools",
         items: [
-            { name: "MongoDB", level: 75 },
-            { name: "SQL", level: 60 },
-            { name: "Git/GitHub", level: 85 }
+            "MongoDB", "SQL", "Git/GitHub"
         ],
         icon: Database
     }
