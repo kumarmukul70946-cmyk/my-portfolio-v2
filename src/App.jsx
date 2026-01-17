@@ -40,57 +40,72 @@ const Navbar = () => {
     { name: 'Projects', href: '#projects' },
     { name: 'Education', href: '#education' },
     { name: 'About', href: '#about' },
-    { name: 'Contact', href: '#contact' },
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-[rgba(3,0,20,0.8)] backdrop-blur-md border-b border-white/5' : 'bg-transparent'}`}>
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <a href="#" className="text-2xl font-bold font-heading text-white tracking-wider">
-          Mukul<span className="text-primary-color">.</span>
-        </a>
+    <nav className="fixed w-full z-50 pt-6 transition-all duration-500">
+      <div className="container mx-auto px-6 flex justify-center">
+        <motion.div
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className={`flex items-center gap-8 px-6 py-3 rounded-full border border-white/10 transition-all duration-500 ${scrolled
+              ? 'bg-black/60 backdrop-blur-xl border-primary-color/30 shadow-[0_0_20px_rgba(124,58,237,0.1)]'
+              : 'bg-white/5 backdrop-blur-md'
+            }`}
+        >
+          <a href="#" className="text-xl font-bold font-heading text-white tracking-tight mr-4">
+            Mukul<span className="text-primary-color">.</span>
+          </a>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex gap-8 items-center">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-sm font-medium hover:text-primary-color transition-colors"
-            >
-              {link.name}
+          {/* Desktop Menu */}
+          <div className="hidden md:flex gap-8 items-center">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="text-xs uppercase tracking-widest font-bold text-gray-400 hover:text-white transition-colors"
+              >
+                {link.name}
+              </a>
+            ))}
+            <a href="#contact" className="ml-4 px-5 py-2 rounded-full bg-gradient-to-r from-primary-color to-primary-glow text-white text-xs font-bold uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary-color/20">
+              Get In Touch
             </a>
-          ))}
-          <a href="#contact" className="btn btn-primary text-sm px-6 py-2">Get In Touch</a>
-        </div>
+          </div>
 
-        {/* Mobile Toggle */}
-        <button className="md:hidden text-white hover:text-primary-color" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          {/* Mobile Toggle */}
+          <button className="md:hidden text-white hover:text-primary-color ml-4" onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </motion.div>
       </div>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#0a0a0a] border-b border-white/5 overflow-hidden"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-24 left-6 right-6 md:hidden glass-card !p-6 flex flex-col gap-4 text-center border-primary-color/20"
           >
-            <div className="flex flex-col p-6 gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-lg font-medium hover:text-primary-color"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.name}
-                </a>
-              ))}
-            </div>
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className="text-sm font-bold uppercase tracking-widest hover:text-primary-color transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                {link.name}
+              </a>
+            ))}
+            <a
+              href="#contact"
+              className="mt-2 btn btn-primary justify-center text-xs"
+              onClick={() => setIsOpen(false)}
+            >
+              Get In Touch
+            </a>
           </motion.div>
         )}
       </AnimatePresence>
