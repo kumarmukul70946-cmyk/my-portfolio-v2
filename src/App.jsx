@@ -443,7 +443,7 @@ const Contact = () => {
 
     const formData = new FormData(e.target);
     // You can get your own Access Key at https://web3forms.com/
-    formData.append("access_key", "YOUR_ACCESS_KEY_HERE");
+    formData.append("access_key", "69123efb-4c59-496c-aff9-fc242e2ceef5");
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
