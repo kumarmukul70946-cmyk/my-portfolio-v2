@@ -15,7 +15,7 @@ export const personalInfo = {
         { label: "Tech Stack", value: "MERN" },
         { label: "Availability", value: "Internship" }
     ],
-    tagline: "Building digital experiences that combine robust backend logic with pixel-perfect design.",
+    tagline: "Building digital experiences that combine backend logic with pixel-perfect design.",
     education: [
         {
             institution: "Parul University, Vadodara",
@@ -34,21 +34,27 @@ export const skills = [
     {
         category: "Frontend",
         items: [
-            "HTML", "CSS", "JavaScript", "React.js"
+            { name: "HTML", iconId: "html" },
+            { name: "CSS", iconId: "css" },
+            { name: "JavaScript", iconId: "js" },
+            { name: "React.js", iconId: "react" }
         ],
         icon: Globe
     },
     {
         category: "Backend",
         items: [
-            "Node.js", "Express.js", "REST APIs"
+            { name: "Node.js", iconId: "nodejs" },
+            { name: "REST APIs", iconId: "postman" }
         ],
         icon: Server
     },
     {
         category: "Database & Tools",
         items: [
-            "MongoDB", "SQL", "Git/GitHub"
+            { name: "MongoDB", iconId: "mongodb" },
+            { name: "SQL", iconId: "mysql" },
+            { name: "Git/GitHub", iconId: "git" }
         ],
         icon: Database
     }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Menu, X, Github, Linkedin, Mail, Phone, ChevronDown, ExternalLink,
-  Code2, Server, Database, User, BookOpen, Award, Send, Trophy
+  Code2, Server, Database, User, BookOpen, Award, Send, Trophy, Sun, Moon
 } from 'lucide-react';
 import { personalInfo, skills, projects, certifications, achievements } from './data';
 
@@ -23,7 +23,7 @@ const staggerContainer = {
 };
 
 // --- Navbar Component ---
-const Navbar = () => {
+const Navbar = ({ theme, toggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -48,12 +48,12 @@ const Navbar = () => {
         <motion.div
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className={`flex items-center gap-8 px-6 py-3 rounded-full border border-white/10 transition-all duration-500 ${scrolled
-              ? 'bg-black/60 backdrop-blur-xl border-primary-color/30 shadow-[0_0_20px_rgba(124,58,237,0.1)]'
-              : 'bg-white/5 backdrop-blur-md'
+          className={`flex items-center gap-8 px-6 py-3 rounded-full border border-[var(--glass-border)] transition-all duration-500 shadow-xl ${scrolled
+            ? 'bg-[var(--glass-bg)] backdrop-blur-xl border-primary-color/30'
+            : 'bg-[var(--glass-bg)] backdrop-blur-md'
             }`}
         >
-          <a href="#" className="text-xl font-bold font-heading text-white tracking-tight mr-4">
+          <a href="#" className="text-xl font-bold font-heading text-[var(--text-primary)] tracking-tight mr-4">
             Mukul<span className="text-primary-color">.</span>
           </a>
 
@@ -63,20 +63,38 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-xs uppercase tracking-widest font-bold text-gray-400 hover:text-white transition-colors"
+                className="text-xs uppercase tracking-widest font-bold text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
               >
                 {link.name}
               </a>
             ))}
+
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full hover:bg-primary-color/10 text-[var(--text-secondary)] hover:text-primary-color transition-all"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+
             <a href="#contact" className="ml-4 px-5 py-2 rounded-full bg-gradient-to-r from-primary-color to-primary-glow text-white text-xs font-bold uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary-color/20">
               Get In Touch
             </a>
           </div>
 
           {/* Mobile Toggle */}
-          <button className="md:hidden text-white hover:text-primary-color ml-4" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          <div className="flex items-center gap-4 md:hidden">
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full text-[var(--text-secondary)]"
+            >
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+            <button className="text-[var(--text-primary)] hover:text-primary-color" onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </motion.div>
       </div>
 
@@ -93,7 +111,7 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-bold uppercase tracking-widest hover:text-primary-color transition-colors"
+                className="text-sm font-bold uppercase tracking-widest text-[var(--text-secondary)] hover:text-primary-color transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 {link.name}
@@ -134,14 +152,15 @@ const Hero = () => {
             <span className="text-gradient">Innovate</span>.
           </motion.h1>
 
-          <motion.p variants={fadeInUp} className="text-gray-400 text-lg md:text-xl mb-8 max-w-2xl leading-relaxed">
-            I'm <span className="text-white font-bold">{personalInfo.name}</span>. {personalInfo.tagline}
+          <motion.p variants={fadeInUp} className="text-[var(--text-secondary)] text-lg md:text-xl mb-8 max-w-2xl leading-relaxed">
+            I'm <span className="text-[var(--text-primary)] font-bold">{personalInfo.name}</span>. {personalInfo.tagline}
           </motion.p>
 
           <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
             <a href="#projects" className="btn btn-primary px-8 py-4 shadow-[0_0_20px_rgba(124,58,237,0.4)]">My Projects</a>
-            <a href="#contact" className="btn btn-outline px-8 py-4">Hire Me</a>
+            <a href="#contact" className="btn btn-outline px-8 py-4 border-[var(--glass-border)] text-[var(--text-primary)] hover:border-primary-color">Hire Me</a>
           </motion.div>
+
         </motion.div>
 
         <motion.div
@@ -202,12 +221,12 @@ const About = () => {
           variants={fadeInUp}
           className="max-w-3xl mx-auto text-center"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-8"><span className="text-gradient">About Me</span></h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-[var(--text-primary)]"><span className="text-gradient">About Me</span></h2>
           <div className="glass-card text-left p-8">
-            <p className="text-lg text-gray-300 leading-relaxed mb-6">
-              I'm a passionate <strong className="text-white">MERN stack developer</strong> currently pursuing my B.Tech in Computer Science Engineering at <span className="text-secondary-color">Parul University (2022-2026)</span>.
+            <p className="text-lg text-[var(--text-secondary)] leading-relaxed mb-6">
+              I'm a passionate <strong className="text-[var(--text-primary)]">MERN stack developer</strong> currently pursuing my B.Tech in Computer Science Engineering at <span className="text-secondary-color">Parul University (2022-2026)</span>.
             </p>
-            <p className="text-lg text-gray-300 leading-relaxed">
+            <p className="text-lg text-[var(--text-secondary)] leading-relaxed">
               I love building responsive web applications and solving complex problems. I'm experienced in <span className="text-primary-color">HTML, CSS, JavaScript, React.js, Node.js, and MongoDB</span>, with a strong focus on clean code and best practices.
             </p>
           </div>
@@ -220,7 +239,7 @@ const About = () => {
 // --- Skills Component ---
 const Skills = () => {
   return (
-    <section id="skills" className="section-padding bg-[#050505]">
+    <section id="skills" className="section-padding relative">
       <div className="container mx-auto px-6">
         <motion.div
           initial="hidden"
@@ -228,26 +247,33 @@ const Skills = () => {
           viewport={{ once: true }}
           variants={staggerContainer}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Skills & <span className="text-gradient">Technologies</span></h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-[var(--text-primary)]">Skills & <span className="text-gradient">Technologies</span></h2>
 
           <div className="grid md:grid-cols-3 gap-8">
             {skills.map((skillGroup, idx) => (
-              <motion.div key={idx} variants={fadeInUp} className="glass-card hover:border-primary-color/50 !bg-white/2 backdrop-blur-sm">
+              <motion.div key={idx} variants={fadeInUp} className="glass-card hover:border-primary-color/50 !bg-[var(--glass-bg)] backdrop-blur-sm">
                 <div className="flex items-center gap-4 mb-8">
                   <div className="p-3 bg-primary-color/10 rounded-xl text-primary-color">
                     <skillGroup.icon size={28} />
                   </div>
-                  <h3 className="text-xl font-bold">{skillGroup.category}</h3>
+                  <h3 className="text-xl font-bold text-[var(--text-primary)]">{skillGroup.category}</h3>
                 </div>
                 <div className="flex flex-wrap gap-3">
                   {skillGroup.items.map((skill, i) => (
-                    <motion.span
+                    <motion.div
                       key={i}
-                      whileHover={{ scale: 1.05 }}
-                      className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-sm font-medium text-gray-300 hover:text-white hover:bg-primary-color/10 hover:border-primary-color/30 transition-all cursor-default"
+                      whileHover={{ scale: 1.05, translateY: -2 }}
+                      className="flex items-center gap-2 px-3 py-2 bg-white/5 border border-white/10 rounded-xl hover:bg-primary-color/10 hover:border-primary-color/30 transition-all cursor-default group/skill"
                     >
-                      {skill}
-                    </motion.span>
+                      <img
+                        src={`https://skillicons.dev/icons?i=${skill.iconId}`}
+                        alt={skill.name}
+                        className="w-5 h-5 object-contain filter grayscale group-hover/skill:grayscale-0 transition-all"
+                      />
+                      <span className="text-sm font-medium text-gray-400 group-hover/skill:text-white transition-colors">
+                        {skill.name}
+                      </span>
+                    </motion.div>
                   ))}
                 </div>
               </motion.div>
@@ -290,25 +316,51 @@ const Projects = () => {
 
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className="text-2xl font-bold">{project.title}</h3>
+                  <h3 className="text-2xl font-bold text-[var(--text-primary)]">{project.title}</h3>
                   <div className="flex items-center gap-2 mt-2">
                     <span className="w-2 h-2 rounded-full bg-secondary-color animate-pulse"></span>
                     <span className="text-xs font-medium text-secondary-color tracking-widest uppercase">Live Project</span>
                   </div>
                 </div>
-                <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-full transition-colors"><ExternalLink size={20} /></a>
+                <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-full transition-colors text-[var(--text-secondary)] hover:text-[var(--text-primary)]"><ExternalLink size={20} /></a>
               </div>
 
-              <p className="text-gray-400 mb-6 leading-relaxed">
+              <p className="text-[var(--text-secondary)] mb-6 leading-relaxed">
                 {project.description}
               </p>
 
               <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag, i) => (
-                  <span key={i} className="text-xs font-semibold px-3 py-1 bg-primary-color/20 text-primary-color rounded-full">
-                    {tag}
-                  </span>
-                ))}
+                {project.tags.map((tag, i) => {
+                  const tagIconMap = {
+                    "React": "react",
+                    "Node.js": "nodejs",
+                    "MongoDB": "mongodb",
+                    "Git": "git",
+                    "Next.js": "nextjs",
+                    "Python": "python",
+                    "Tailwind CSS": "tailwind",
+                    "JavaScript": "js",
+                    "PostgreSQL": "postgres",
+                    "Firebase": "firebase"
+                  };
+                  const iconId = tagIconMap[tag];
+                  return (
+                    <motion.div
+                      key={i}
+                      whileHover={{ scale: 1.05 }}
+                      className="flex items-center gap-1.5 px-3 py-1 bg-primary-color/10 border border-primary-color/20 text-primary-color rounded-full text-[10px] font-bold uppercase tracking-wider transition-all hover:bg-primary-color/20"
+                    >
+                      {iconId && (
+                        <img
+                          src={`https://skillicons.dev/icons?i=${iconId}`}
+                          alt={tag}
+                          className="w-3 h-3 object-contain"
+                        />
+                      )}
+                      {tag}
+                    </motion.div>
+                  );
+                })}
               </div>
             </motion.div>
           ))}
@@ -321,19 +373,19 @@ const Projects = () => {
 // --- Education & Certs Component ---
 const Education = () => {
   return (
-    <section id="education" className="section-padding bg-[#050505]">
+    <section id="education" className="section-padding relative">
       <div className="container mx-auto px-6 grid lg:grid-cols-3 md:grid-cols-2 gap-12">
         {/* Education Column */}
         <div className="md:col-span-2 lg:col-span-1">
-          <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
+          <h2 className="text-3xl font-bold mb-8 flex items-center gap-3 text-[var(--text-primary)]">
             <BookOpen className="text-secondary-color" /> Education
           </h2>
           <div className="space-y-8">
             {personalInfo.education.map((edu, idx) => (
-              <div key={idx} className="glass-card pl-8 relative border-l-4 border-l-primary-color rounded-none rounded-r-xl border-y border-r border-white/5">
-                <div className="absolute left-[-11px] top-6 w-5 h-5 bg-primary-color rounded-full border-4 border-[#0a0a0a]"></div>
-                <h3 className="text-xl font-bold">{edu.institution}</h3>
-                <p className="text-gray-400 mt-1 mb-2">{edu.degree}</p>
+              <div key={idx} className="glass-card pl-8 relative border-l-4 border-l-primary-color rounded-none rounded-r-xl border-y border-r border-[var(--glass-border)]">
+                <div className="absolute left-[-11px] top-6 w-5 h-5 bg-primary-color rounded-full border-4 border-[var(--bg-color)]"></div>
+                <h3 className="text-xl font-bold text-[var(--text-primary)]">{edu.institution}</h3>
+                <p className="text-[var(--text-secondary)] mt-1 mb-2">{edu.degree}</p>
                 <span className="text-sm text-secondary-color font-mono">{edu.duration}</span>
               </div>
             ))}
@@ -342,7 +394,7 @@ const Education = () => {
 
         {/* Certifications Column */}
         <div>
-          <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
+          <h2 className="text-3xl font-bold mb-8 flex items-center gap-3 text-[var(--text-primary)]">
             <Award className="text-yellow-500" /> Certifications
           </h2>
           <div className="space-y-4">
@@ -350,9 +402,9 @@ const Education = () => {
               <a href={cert.link} target="_blank" rel="noopener noreferrer" key={idx} className="glass-card flex items-center justify-between group hover:translate-x-2 transition-transform">
                 <div className="flex items-center gap-4">
                   <Award size={24} className="text-yellow-500" />
-                  <span className="font-medium text-lg">{cert.title}</span>
+                  <span className="font-medium text-lg text-[var(--text-primary)]">{cert.title}</span>
                 </div>
-                <ExternalLink size={18} className="text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ExternalLink size={18} className="text-[var(--text-secondary)] opacity-0 group-hover:opacity-100 transition-opacity" />
               </a>
             ))}
           </div>
@@ -360,7 +412,7 @@ const Education = () => {
 
         {/* Achievements Column */}
         <div>
-          <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">
+          <h2 className="text-3xl font-bold mb-8 flex items-center gap-3 text-[var(--text-primary)]">
             <Trophy className="text-orange-500" /> Achievements
           </h2>
           <div className="space-y-4">
@@ -368,9 +420,9 @@ const Education = () => {
               <a href={achievement.link} target="_blank" rel="noopener noreferrer" key={idx} className="glass-card flex items-center justify-between group hover:translate-x-2 transition-transform border-orange-500/20">
                 <div className="flex items-center gap-4">
                   <Trophy size={24} className="text-orange-500" />
-                  <span className="font-medium text-lg">{achievement.title}</span>
+                  <span className="font-medium text-lg text-[var(--text-primary)]">{achievement.title}</span>
                 </div>
-                <ExternalLink size={18} className="text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <ExternalLink size={18} className="text-[var(--text-secondary)] opacity-0 group-hover:opacity-100 transition-opacity" />
               </a>
             ))}
           </div>
@@ -423,8 +475,8 @@ const Contact = () => {
 
         <div className="grid md:grid-cols-2 gap-12 items-start">
           <div>
-            <h3 className="text-2xl font-bold mb-6">Let's Connect</h3>
-            <p className="text-gray-400 mb-8 text-lg">
+            <h3 className="text-2xl font-bold mb-6 text-[var(--text-primary)]">Let's Connect</h3>
+            <p className="text-[var(--text-secondary)] mb-8 text-lg">
               I'm always interested in hearing about new projects and opportunities. Feel free to reach out!
             </p>
 
@@ -434,8 +486,8 @@ const Contact = () => {
                   <Mail size={24} />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Email</p>
-                  <a href={`mailto:${personalInfo.email}`} className="text-lg font-medium hover:text-primary-color transition-colors">{personalInfo.email}</a>
+                  <p className="text-sm text-[var(--text-secondary)]">Email</p>
+                  <a href={`mailto:${personalInfo.email}`} className="text-lg font-medium text-[var(--text-primary)] hover:text-primary-color transition-colors">{personalInfo.email}</a>
                 </div>
               </div>
 
@@ -444,8 +496,8 @@ const Contact = () => {
                   <Phone size={24} />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Phone</p>
-                  <a href={`tel:${personalInfo.phone}`} className="text-lg font-medium hover:text-secondary-color transition-colors">{personalInfo.phone}</a>
+                  <p className="text-sm text-[var(--text-secondary)]">Phone</p>
+                  <a href={`tel:${personalInfo.phone}`} className="text-lg font-medium text-[var(--text-primary)] hover:text-secondary-color transition-colors">{personalInfo.phone}</a>
                 </div>
               </div>
             </div>
@@ -463,9 +515,9 @@ const Contact = () => {
                   <div className="w-20 h-20 bg-green-500/20 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
                     <Send size={40} />
                   </div>
-                  <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
-                  <p className="text-gray-400 mb-6">Thank you for reaching out. I'll get back to you soon.</p>
-                  <button onClick={() => setSubmitted(false)} className="btn btn-outline mx-auto">Send Another</button>
+                  <h3 className="text-2xl font-bold mb-2 text-[var(--text-primary)]">Message Sent!</h3>
+                  <p className="text-[var(--text-secondary)] mb-6">Thank you for reaching out. I'll get back to you soon.</p>
+                  <button onClick={() => setSubmitted(false)} className="btn btn-outline mx-auto border-[var(--glass-border)] text-[var(--text-primary)]">Send Another</button>
                 </motion.div>
               ) : (
                 <motion.form
@@ -477,18 +529,18 @@ const Contact = () => {
                 >
                   <div className="grid grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-sm text-gray-400">Your Name</label>
-                      <input name="name" required type="text" className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:border-primary-color focus:outline-none transition-colors" placeholder="John Doe" />
+                      <label className="text-sm text-[var(--text-secondary)]">Your Name</label>
+                      <input name="name" required type="text" className="w-full bg-[var(--surface-color)] border border-[var(--glass-border)] rounded-lg p-3 text-[var(--text-primary)] focus:border-primary-color focus:outline-none transition-colors" placeholder="John Doe" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-sm text-gray-400">Your Email</label>
-                      <input name="email" required type="email" className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:border-primary-color focus:outline-none transition-colors" placeholder="john@example.com" />
+                      <label className="text-sm text-[var(--text-secondary)]">Your Email</label>
+                      <input name="email" required type="email" className="w-full bg-[var(--surface-color)] border border-[var(--glass-border)] rounded-lg p-3 text-[var(--text-primary)] focus:border-primary-color focus:outline-none transition-colors" placeholder="john@example.com" />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm text-gray-400">Your Message</label>
-                    <textarea name="message" required rows="4" className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:border-primary-color focus:outline-none transition-colors" placeholder="Hello..." />
+                    <label className="text-sm text-[var(--text-secondary)]">Your Message</label>
+                    <textarea name="message" required rows="4" className="w-full bg-[var(--surface-color)] border border-[var(--glass-border)] rounded-lg p-3 text-[var(--text-primary)] focus:border-primary-color focus:outline-none transition-colors" placeholder="Hello..." />
                   </div>
 
                   <button disabled={isSubmitting} className="w-full btn btn-primary justify-center disabled:opacity-50 disabled:cursor-not-allowed">
@@ -507,19 +559,70 @@ const Contact = () => {
 // --- Footer Component ---
 const Footer = () => {
   return (
-    <footer className="py-8 border-t border-white/10 bg-black text-center text-gray-500 text-sm">
+    <footer className="py-8 border-t border-[var(--glass-border)] bg-[var(--bg-color)] text-center text-[var(--text-secondary)] text-sm">
       <div className="container mx-auto">
         <p>&copy; {new Date().getFullYear()} {personalInfo.name}. All rights reserved.</p>
         <div className="flex justify-center gap-6 mt-4">
-          <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
-          <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">LinkedIn</a>
-          <a href={`mailto:${personalInfo.email}`} className="hover:text-white transition-colors">Email</a>
+          <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="hover:text-primary-color transition-colors">GitHub</a>
+          <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-primary-color transition-colors">LinkedIn</a>
+          <a href={`mailto:${personalInfo.email}`} className="hover:text-primary-color transition-colors">Email</a>
         </div>
       </div>
     </footer>
   );
 };
 
+// --- Modern Background Enhancement ---
+const Background = ({ theme }) => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+      {/* Mesh Layers */}
+      <div className="bg-mesh" />
+      <div className="bg-grid" />
+
+      {/* Animated Blobs */}
+      <motion.div
+        animate={{
+          x: [0, 100, 0],
+          y: [0, -50, 0],
+          scale: [1, 1.2, 1],
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className={`absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary-color/${theme === 'dark' ? '10' : '5'} blur-[120px] rounded-full`}
+      />
+      <motion.div
+        animate={{
+          x: [0, -80, 0],
+          y: [0, 100, 0],
+          scale: [1, 1.3, 1],
+        }}
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        className={`absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-secondary-color/${theme === 'dark' ? '10' : '5'} blur-[120px] rounded-full`}
+      />
+
+      {/* Mouse Spotlight */}
+      <div
+        className="absolute inset-0 z-0 opacity-40 transition-opacity duration-500"
+        style={{
+          background: `radial-gradient(circle 400px at ${mousePos.x}px ${mousePos.y}px, ${theme === 'dark' ? 'rgba(124, 58, 237, 0.1)' : 'rgba(124, 58, 237, 0.05)'}, transparent 80%)`
+        }}
+      />
+
+      {/* Noise / Grain Overlay */}
+      <div className="grain" />
+    </div>
+  );
+};
 // --- Tech Marquee ---
 const TechMarquee = () => {
   const techs = ["React", "Node.js", "Express", "MongoDB", "JavaScript", "TypeScript", "Tailwind CSS", "Git", "Next.js", "REST APIs"];
@@ -533,17 +636,31 @@ const TechMarquee = () => {
           </span>
         ))}
       </div>
-      <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-bg-color to-transparent z-10"></div>
-      <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-bg-color to-transparent z-10"></div>
+      <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-[var(--bg-color)] to-transparent z-10"></div>
+      <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-[var(--bg-color)] to-transparent z-10"></div>
     </div>
   );
 };
 
 // --- Main App ---
 function App() {
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
+
   return (
-    <div className="min-h-screen text-white relative bg-mesh bg-grid">
-      <Navbar />
+    <div className="min-h-screen text-[var(--text-primary)] selection:bg-primary-color/30 transition-colors duration-500">
+      <Background theme={theme} />
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
       <Hero />
       <TechMarquee />
       <Skills />
