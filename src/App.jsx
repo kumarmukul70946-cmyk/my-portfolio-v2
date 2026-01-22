@@ -4,7 +4,8 @@ import {
   Menu, X, Github, Linkedin, Mail, Phone, ChevronDown, ExternalLink,
   Code2, Server, Database, User, BookOpen, Award, Send, Trophy, Sun, Moon
 } from 'lucide-react';
-import { personalInfo, skills, projects, certifications, achievements } from './data';
+import { personalInfo, skills, projects, certifications, achievements, testimonials } from './data';
+import { Quote } from 'lucide-react';
 
 // --- Animations ---
 const fadeInUp = {
@@ -146,19 +147,33 @@ const Hero = () => {
           variants={staggerContainer}
           className="lg:col-span-7 order-2 lg:order-1"
         >
-          <motion.div variants={fadeInUp} className="text-secondary-color font-mono tracking-[0.3em] uppercase text-sm mb-4">MERN Stack Developer</motion.div>
-          <motion.h1 variants={fadeInUp} className="text-5xl md:text-8xl font-black mb-6 leading-[1.1] tracking-tight">
-            Design. Code.<br />
-            <span className="text-gradient">Innovate</span>.
+          <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-black mb-4 leading-[1.1] tracking-tight">
+            I build <span className="text-gradient">fast, modern</span><br /> web apps.
           </motion.h1>
+
+          <motion.div variants={fadeInUp} className="flex flex-wrap gap-3 mb-8">
+            <span className="px-4 py-1.5 rounded-full bg-primary-color/10 border border-primary-color/20 text-primary-color text-sm font-bold tracking-wide">
+              {personalInfo.role}
+            </span>
+            <span className="px-4 py-1.5 rounded-full bg-surface-color border border-[var(--glass-border)] text-[var(--text-secondary)] text-sm font-medium">
+              React | Node | MongoDB
+            </span>
+            <span className="px-4 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 text-green-500 text-sm font-bold tracking-wide flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              Open to Work
+            </span>
+          </motion.div>
 
           <motion.p variants={fadeInUp} className="text-[var(--text-secondary)] text-lg md:text-xl mb-8 max-w-2xl leading-relaxed">
             I'm <span className="text-[var(--text-primary)] font-bold">{personalInfo.name}</span>. {personalInfo.tagline}
           </motion.p>
 
           <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
-            <a href="#projects" className="btn btn-primary px-8 py-4 shadow-[0_0_20px_rgba(124,58,237,0.4)]">My Projects</a>
-            <a href="#contact" className="btn btn-outline px-8 py-4 border-[var(--glass-border)] text-[var(--text-primary)] hover:border-primary-color">Hire Me</a>
+            <a href="#projects" className="btn btn-primary px-8 py-4 shadow-[0_0_20px_rgba(56,189,248,0.4)]">View Projects</a>
+            <a href="#contact" className="btn btn-outline px-8 py-4 border-[var(--glass-border)] text-[var(--text-primary)] hover:border-primary-color">Contact Me</a>
           </motion.div>
 
         </motion.div>
@@ -205,6 +220,31 @@ const Hero = () => {
         <span className="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold">Scroll</span>
         <div className="w-[1px] h-12 bg-gradient-to-t from-primary-color to-transparent"></div>
       </motion.div>
+    </section>
+  );
+};
+
+// --- Stats Component ---
+const Stats = () => {
+  return (
+    <section className="py-10 border-y border-[var(--glass-border)] bg-[var(--surface-color)]/30 backdrop-blur-sm">
+      <div className="container mx-auto px-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {personalInfo.stats.map((stat, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+              className="text-center"
+            >
+              <h3 className="text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-1">{stat.value}</h3>
+              <p className="text-sm font-medium text-[var(--text-secondary)] uppercase tracking-wider">{stat.label}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 };
@@ -287,80 +327,141 @@ const Skills = () => {
 
 // --- Projects Component ---
 const Projects = () => {
+  const [filter, setFilter] = useState('All');
+  const categories = ['All', 'Full Stack', 'Frontend', 'Backend'];
+
+  const filteredProjects = projects.filter(project =>
+    filter === 'All' ? true : project.category === filter
+  );
+
   return (
     <section id="projects" className="section-padding">
       <div className="container mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Featured <span className="text-gradient">Projects</span></h2>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[var(--text-primary)]">Featured <span className="text-gradient">Projects</span></h2>
+
+          <div className="flex flex-wrap justify-center gap-4">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setFilter(cat)}
+                className={`px-6 py-2 rounded-full text-sm font-bold tracking-wide transition-all ${filter === cat
+                  ? 'bg-primary-color text-white shadow-lg shadow-primary-color/30'
+                  : 'bg-[var(--surface-color)] border border-[var(--glass-border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-primary-color/50'
+                  }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {projects.map((project, idx) => (
+          <AnimatePresence mode='popLayout'>
+            {filteredProjects.map((project) => (
+              <motion.div
+                layout
+                key={project.title}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.3 }}
+                className="glass-card group overflow-hidden"
+              >
+                {/* Project Image */}
+                <div className="h-48 rounded-lg mb-6 flex items-center justify-center overflow-hidden border border-white/5 relative group/img">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-primary-color/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center gap-4 backdrop-blur-sm">
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn btn-primary text-xs py-2 px-4 shadow-lg scale-0 group-hover/img:scale-100 transition-transform delay-100">Live Demo</a>
+                    <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="btn btn-outline bg-black/50 text-white border-white/20 text-xs py-2 px-4 scale-0 group-hover/img:scale-100 transition-transform delay-200">GitHub</a>
+                  </div>
+                </div>
+
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <h3 className="text-2xl font-bold text-[var(--text-primary)]">{project.title}</h3>
+                    <div className="flex items-center gap-2 mt-2">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-secondary-color/10 text-secondary-color uppercase tracking-wider">{project.category}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-[var(--text-secondary)] mb-6 leading-relaxed">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag, i) => {
+                    const tagIconMap = {
+                      "React": "react",
+                      "Node.js": "nodejs",
+                      "MongoDB": "mongodb",
+                      "Git": "git",
+                      "Next.js": "nextjs",
+                      "Python": "python",
+                      "Tailwind CSS": "tailwind",
+                      "JavaScript": "js",
+                      "PostgreSQL": "postgres",
+                      "Firebase": "firebase"
+                    };
+                    const iconId = tagIconMap[tag];
+                    return (
+                      <motion.div
+                        key={i}
+                        whileHover={{ scale: 1.05 }}
+                        className="flex items-center gap-1.5 px-3 py-1 bg-primary-color/10 border border-primary-color/20 text-primary-color rounded-full text-[10px] font-bold uppercase tracking-wider transition-all hover:bg-primary-color/20"
+                      >
+                        {iconId && (
+                          <img
+                            src={`https://skillicons.dev/icons?i=${iconId}`}
+                            alt={tag}
+                            className="w-3 h-3 object-contain"
+                          />
+                        )}
+                        {tag}
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// --- Testimonials Component ---
+const Testimonials = () => {
+  return (
+    <section className="section-padding bg-[var(--surface-color)]/30">
+      <div className="container mx-auto px-6">
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-[var(--text-primary)]">What People <span className="text-gradient">Say</span></h2>
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {testimonials.map((testimonial, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.2 }}
-              className="glass-card group"
+              className="glass-card relative p-8"
             >
-              {/* Project Image */}
-              <div className="h-48 rounded-lg mb-6 flex items-center justify-center overflow-hidden border border-white/5 relative group/img">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover group-hover/img:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-primary-color/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
-                  <project.icon size={48} className="text-white drop-shadow-lg" />
+              <Quote className="absolute top-6 right-6 text-primary-color/20" size={48} />
+              <p className="text-lg text-[var(--text-secondary)] italic mb-6 relative z-10">"{testimonial.text}"</p>
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-primary-color to-secondary-color flex items-center justify-center text-white font-bold text-lg">
+                  {testimonial.name[0]}
                 </div>
-              </div>
-
-              <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className="text-2xl font-bold text-[var(--text-primary)]">{project.title}</h3>
-                  <div className="flex items-center gap-2 mt-2">
-                    <span className="w-2 h-2 rounded-full bg-secondary-color animate-pulse"></span>
-                    <span className="text-xs font-medium text-secondary-color tracking-widest uppercase">Live Project</span>
-                  </div>
+                  <h4 className="font-bold text-[var(--text-primary)]">{testimonial.name}</h4>
+                  <p className="text-xs text-secondary-color uppercase tracking-wider">{testimonial.role}</p>
                 </div>
-                <a href={project.link} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-white/10 rounded-full transition-colors text-[var(--text-secondary)] hover:text-[var(--text-primary)]"><ExternalLink size={20} /></a>
-              </div>
-
-              <p className="text-[var(--text-secondary)] mb-6 leading-relaxed">
-                {project.description}
-              </p>
-
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag, i) => {
-                  const tagIconMap = {
-                    "React": "react",
-                    "Node.js": "nodejs",
-                    "MongoDB": "mongodb",
-                    "Git": "git",
-                    "Next.js": "nextjs",
-                    "Python": "python",
-                    "Tailwind CSS": "tailwind",
-                    "JavaScript": "js",
-                    "PostgreSQL": "postgres",
-                    "Firebase": "firebase"
-                  };
-                  const iconId = tagIconMap[tag];
-                  return (
-                    <motion.div
-                      key={i}
-                      whileHover={{ scale: 1.05 }}
-                      className="flex items-center gap-1.5 px-3 py-1 bg-primary-color/10 border border-primary-color/20 text-primary-color rounded-full text-[10px] font-bold uppercase tracking-wider transition-all hover:bg-primary-color/20"
-                    >
-                      {iconId && (
-                        <img
-                          src={`https://skillicons.dev/icons?i=${iconId}`}
-                          alt={tag}
-                          className="w-3 h-3 object-contain"
-                        />
-                      )}
-                      {tag}
-                    </motion.div>
-                  );
-                })}
               </div>
             </motion.div>
           ))}
@@ -562,6 +663,7 @@ const Footer = () => {
     <footer className="py-8 border-t border-[var(--glass-border)] bg-[var(--bg-color)] text-center text-[var(--text-secondary)] text-sm">
       <div className="container mx-auto">
         <p>&copy; {new Date().getFullYear()} {personalInfo.name}. All rights reserved.</p>
+        <p className="text-xs mt-2 text-[var(--text-secondary)]/60">Made with React + Tailwind</p>
         <div className="flex justify-center gap-6 mt-4">
           <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="hover:text-primary-color transition-colors">GitHub</a>
           <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-primary-color transition-colors">LinkedIn</a>

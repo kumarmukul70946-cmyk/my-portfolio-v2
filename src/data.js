@@ -10,10 +10,8 @@ export const personalInfo = {
     github: "https://github.com/kumarmukul70946-cmyk",
     linkedin: "https://www.linkedin.com/in/mukul-anand-7912a6248",
     stats: [
-        { label: "Placement Ready", value: "2026" },
-        { label: "Code Quality", value: "A+" },
-        { label: "Tech Stack", value: "MERN" },
-        { label: "Availability", value: "Internship" }
+        { label: "Projects Completed", value: "10+" },
+        { label: "Experience", value: "3rd Year B.Tech" }
     ],
     tagline: "Building digital experiences that combine backend logic with pixel-perfect design.",
     education: [
@@ -37,7 +35,8 @@ export const skills = [
             { name: "HTML", iconId: "html" },
             { name: "CSS", iconId: "css" },
             { name: "JavaScript", iconId: "js" },
-            { name: "React.js", iconId: "react" }
+            { name: "React.js", iconId: "react" },
+            { name: "Tailwind CSS", iconId: "tailwind" }
         ],
         icon: Globe
     },
@@ -45,6 +44,7 @@ export const skills = [
         category: "Backend",
         items: [
             { name: "Node.js", iconId: "nodejs" },
+            { name: "Express.js", iconId: "express" },
             { name: "REST APIs", iconId: "postman" }
         ],
         icon: Server
@@ -54,7 +54,8 @@ export const skills = [
         items: [
             { name: "MongoDB", iconId: "mongodb" },
             { name: "SQL", iconId: "mysql" },
-            { name: "Git/GitHub", iconId: "git" }
+            { name: "Git", iconId: "git" },
+            { name: "GitHub", iconId: "github" }
         ],
         icon: Database
     }
@@ -63,6 +64,7 @@ export const skills = [
 export const projects = [
     {
         title: "SmartHub – Interior Design Platform",
+        category: "Full Stack",
         tags: ["React", "Node.js", "MongoDB", "Git"],
         description: "Developed responsive user interfaces using HTML, CSS, and React.js. Integrated frontend components with Node.js backend logic. Applied cybersecurity practices for secure data handling. Collaborated in a 4-member team using GitHub.",
         icon: Code2,
@@ -71,11 +73,25 @@ export const projects = [
     },
     {
         title: "MedicalHub – AI Chatbot",
+        category: "Full Stack",
         tags: ["Next.js", "React", "Node.js", "MongoDB", "Python"],
         description: "Built a full-stack medical service web application using Next.js. Designed and implemented an AI-powered chatbot for patient queries. Developed backend API endpoints (/api/chat). Created a clean and responsive chat interface using React.js.",
         icon: Brain,
         link: "https://medicalhub-kappa.vercel.app/",
         image: "/projects/medicalhub.png"
+    }
+];
+
+export const testimonials = [
+    {
+        name: "Dr. Smith",
+        role: "Project Mentor",
+        text: "Mukul is a fast learner and consistent developer. His work on MedicalHub was impressive."
+    },
+    {
+        name: "Sarah Johnson",
+        role: "Team Lead",
+        text: "Great UI skills! Mukul always pays attention to the small details that make a product feel premium."
     }
 ];
 

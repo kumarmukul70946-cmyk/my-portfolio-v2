@@ -14,31 +14,33 @@
 }
 
 :root {
-  --bg-color: #030014;
-  --surface-color: #0f0b1f;
-  --primary-color: #7c3aed;
-  --primary-glow: #8b5cf6;
-  --secondary-color: #2dd4bf;
+  /* Option B: Dark + Neon Accent */
+  --bg-color: #0B1220;
+  --surface-color: #111827;
+  --primary-color: #38BDF8; /* Sky Blue */
+  --primary-glow: #0ea5e9;
+  --secondary-color: #22C55E; /* Green Accent */
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
-  --glass-bg: rgba(15, 11, 31, 0.6);
+  --glass-bg: rgba(17, 24, 39, 0.7);
   --glass-border: rgba(255, 255, 255, 0.08);
-  --font-heading: 'Outfit', sans-serif;
+  --font-heading: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
-  --grid-color: rgba(255, 255, 255, 0.02);
+  --grid-color: rgba(255, 255, 255, 0.03);
 }
 
 [data-theme='light'] {
-  --bg-color: #f8fafc;
-  --surface-color: #ffffff;
-  --primary-color: #6d28d9;
-  --primary-glow: #7c3aed;
-  --secondary-color: #0d9488;
-  --text-primary: #0f172a;
+  /* Option A: White + Blue */
+  --bg-color: #FFFFFF;
+  --surface-color: #F8FAFC;
+  --primary-color: #2563EB;
+  --primary-glow: #3b82f6;
+  --secondary-color: #0F172A; /* Dark Text as secondary for contrast */
+  --text-primary: #0F172A;
   --text-secondary: #475569;
-  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-bg: rgba(255, 255, 255, 0.8);
   --glass-border: rgba(0, 0, 0, 0.08);
-  --grid-color: rgba(0, 0, 0, 0.05);
+  --grid-color: rgba(0, 0, 0, 0.04);
 }
 
 @layer base {
