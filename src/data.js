@@ -9,6 +9,7 @@ export const personalInfo = {
     phone: "+91-9102774718",
     github: "https://github.com/kumarmukul70946-cmyk",
     linkedin: "https://www.linkedin.com/in/mukul-anand-7912a6248",
+    resume: "https://drive.google.com/file/d/1ZiayZQHaNpfrPJHaEnaCYxRFLrTCNtYO/view?usp=sharing",
     stats: [
         { label: "Projects Completed", value: "10+" },
         { label: "Experience", value: "3rd Year B.Tech" }

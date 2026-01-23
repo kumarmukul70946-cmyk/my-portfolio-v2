@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Menu, X, Github, Linkedin, Mail, Phone, ChevronDown, ExternalLink,
-  Code2, Server, Database, User, BookOpen, Award, Send, Trophy, Sun, Moon
+  Code2, Server, Database, User, BookOpen, Award, Send, Trophy, Sun, Moon, FileText
 } from 'lucide-react';
 import { personalInfo, skills, projects, certifications, achievements, testimonials } from './data';
 import { Quote } from 'lucide-react';
@@ -173,6 +173,9 @@ const Hero = () => {
 
           <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
             <a href="#projects" className="btn btn-primary px-8 py-4 shadow-[0_0_20px_rgba(56,189,248,0.4)]">View Projects</a>
+            <a href={personalInfo.resume} target="_blank" rel="noopener noreferrer" className="btn btn-outline px-8 py-4 border-[var(--glass-border)] text-[var(--text-primary)] hover:border-primary-color flex items-center gap-2">
+              <FileText size={20} /> Resume
+            </a>
             <a href="#contact" className="btn btn-outline px-8 py-4 border-[var(--glass-border)] text-[var(--text-primary)] hover:border-primary-color">Contact Me</a>
           </motion.div>
 
@@ -667,6 +670,7 @@ const Footer = () => {
         <div className="flex justify-center gap-6 mt-4">
           <a href={personalInfo.github} target="_blank" rel="noopener noreferrer" className="hover:text-primary-color transition-colors">GitHub</a>
           <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-primary-color transition-colors">LinkedIn</a>
+          <a href={personalInfo.resume} target="_blank" rel="noopener noreferrer" className="hover:text-primary-color transition-colors">Resume</a>
           <a href={`mailto:${personalInfo.email}`} className="hover:text-primary-color transition-colors">Email</a>
         </div>
       </div>
