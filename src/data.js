@@ -79,6 +79,15 @@ export const projects = [
         icon: Brain,
         link: "https://medicalhub-kappa.vercel.app/",
         image: "/projects/medicalhub.png"
+    },
+    {
+        title: "InsightBoard – Admin Dashboard Web Application",
+        category: "Frontend",
+        tags: ["React", "Tailwind CSS", "JavaScript"],
+        description: "Built a responsive Admin Dashboard with secure authentication and protected routes. Designed admin panels for dashboard navigation and user/record management with clean UI. Implemented interactive charts/graphs for analytics and performance tracking.",
+        icon: Shield,
+        link: "https://admin-dashboard-insightboard.vercel.app",
+        image: "/projects/insightboard.png"
     }
 ];
 
